@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <style>
+        .container {
+            background-color: red;
+            justify-content: center;
+            align-items: center;
+            width: 400px;
+            margin-top: 300px;
+            margin-left: 300px;
+            border-radius: 3px;
+            border: 2px solid black;
+            border-radius: 10px;
+        }
+
+        form {
+            color: white;
+            font-weight: bold;
+            justify-content: center;
+        }
+
+        .sub {}
+
+        input {
+            background-color: grey;
+            width: 250px;
+            border: 3px solid blue;
+            color: white;
+        }
+
+        h2 {
+            align-items: center;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+
+        <form action="">
+            <h2>Srec Club Records</h2>
+            <table>
+                <tr>
+                    <td> Name </td>
+                    <td><input type="text" name="username" id="username"> <br></td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Department
+
+                    </td>
+                    <td>
+                        <select name="dept" id="dept">
+                            <option value="cse">CSE</option>
+                            <option value="mtechcse">Mtech.CSE</option>
+                            <option value="ai&ds">AI&DS</option>
+                            <option value="civil">CIVIL</option>
+                            <option value="aero">Aero</option>
+                            <option value="mechanical">Mechanical</option>
+                            <option value="biomedical">Biomedical</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Roll
+                    </td>
+
+                    <td>
+                        <input type="number" name="roll" id="roll">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Club
+                    </td>
+                    <td>
+                        <select name="club" id="club">
+                            <option value="foss">FOSS</option>
+                            <option value="coin">COIN</option>
+                            <option value="fac">FAC</option>
+                            <option value="nature club">Nature CLUB</option>
+                            <option value="tree plantation">Tree Plantation</option>
+                            <option value="nss ">NSS</option>
+                            <option value="sports">Sports</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+
+            <input type="submit" value="SUBMIT" class="sub" id="sub" style="
+             align-items: center;
+            justify-content: center;
+            margin-left: 100px;
+            margin-top: 20px;
+            font-weight: bold;
+            border: 2px solid greenyellow;
+            width: 100px;
+
+            ">
+
+        </form>
+    </div>
+
+</body>
+
+<!-- <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+    import { getDatabse, ref, set, get, child } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyDag5cpq8sXL-I_e1B1JRyx3ab_JzoC-eA",
+        authDomain: "firstsrec.firebaseapp.com",
+        projectId: "firstsrec",
+        storageBucket: "firstsrec.firebasestorage.app",
+        messagingSenderId: "129198740087",
+        appId: "1:129198740087:web:91d8d2dcddfe260683ac72",
+        measurementId: "G-4Q6KR39CXD"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getDatabse(app);
+    document.getElementById("sub").addEventListener('submit', function (e) {
+
+        set(ref(db, 'user/' + document.getElementById("username").value), {
+            Username: document.getElementById("username").value
+
+        })
+        alert("Login success")
+
+    })
+    
+</script> -->
+<script type="module">
+    // Import the functions you need from the SDKs
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-database.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyDag5cpq8sXL-I_e1B1JRyx3ab_JzoC-eA",
+        authDomain: "firstsrec.firebaseapp.com",
+        projectId: "firstsrec",
+        storageBucket: "firstsrec.firebasestorage.app",
+        messagingSenderId: "129198740087",
+        appId: "1:129198740087:web:91d8d2dcddfe260683ac72",
+        measurementId: "G-4Q6KR39CXD"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getDatabase(app);
+
+    // Handle form submission
+    document.querySelector("form").addEventListener('submit', function (e) {
+        e.preventDefault(); // Prevent default submission
+
+        const username = document.getElementById("username").value;
+        const dept = document.getElementById("dept").value;
+        const roll = document.getElementById("roll").value;
+        const club = document.getElementById("club").value;
+
+        set(ref(db, 'Student Information/' + username), {
+            Username: username,
+            Dept:dept,
+            Roll:roll,
+            Club:club
+
+        })
+        .then(() => {
+            alert("Database recorded");
+        })
+        .catch((error) => {
+            alert("Error: " + error.message);
+        });
+    });
+</script>
+
+
+</html>
